@@ -7,30 +7,75 @@ const skills = [
   "SQL", "Git", "GitHub", "REST API", "ASP.NET Core", "EF Core"
 ];
 
+const appBasePath = import.meta.env.BASE_URL || "/";
+
 const projects = [
   {
     number: "01",
     title: "School Management System",
     text: "A full-stack school management platform with student, teacher, attendance and academic workflows.",
-    stack: ["React", "Node.js", "SQL Server"]
+    stack: ["React", "Node.js", "SQL Server"],
+    appType: "Web Application",
+    link: "#"
   },
   {
     number: "02",
     title: "Scientist API",
     text: "A REST API built with ASP.NET Core and Entity Framework Core, connected to SQL Server.",
-    stack: ["ASP.NET Core", "EF Core", "SQL Server"]
+    stack: ["ASP.NET Core", "EF Core", "SQL Server"],
+    appType: "Web Application",
+    link: "#"
   },
   {
     number: "03",
     title: "Portfolio",
     text: "A personal developer portfolio redesigned around immersive typography, motion and minimal UI.",
-    stack: ["React", "CSS", "JavaScript"]
+    stack: ["React", "CSS", "JavaScript"],
+    appType: "Web Application",
+    link: "#"
+  },
+  {
+    number: "04",
+    title: "Calculator",
+    text: "A simple arithmetic calculator built for quick console-based mathematical operations and beginner C# practice.",
+    stack: ["C#", ".NET"],
+    appType: "Console Application",
+    link: "https://github.com/Prasoon9336/Calculator"
+  },
+  {
+    number: "05",
+    title: "CharHandling",
+    text: "A C# console project focused on character and string manipulation tasks for learning core programming fundamentals.",
+    stack: ["C#", ".NET"],
+    appType: "Console Application",
+    link: "https://github.com/Prasoon9336/CharHandling"
+  },
+  {
+    number: "06",
+    title: "ToDo-List",
+    text: "A task-tracking app for creating, updating and organizing daily tasks in a clean and simple interface.",
+    stack: ["React", "JavaScript", "CSS"],
+    appType: "Web Application",
+    link: "https://github.com/Prasoon9336/ToDo-List",
+    previewUrl: `${appBasePath}projects/todo-list/index.html`
+  },
+  {
+    number: "07",
+    title: "WeatherForcast",
+    text: "A forecast dashboard built with HTML, CSS and JavaScript to display weather updates from a live data source.",
+    stack: ["HTML", "CSS", "JavaScript"],
+    appType: "Web Application",
+    link: "https://github.com/Prasoon9336/WeatherForcast",
+    previewUrl: `${appBasePath}projects/weatherforcast/WeatherForcast.html`
   }
 ];
+
+const webProjects = projects.filter((project) => project.appType === "Web Application" && project.previewUrl);
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [role, setRole] = useState(0);
+  const [selectedProject, setSelectedProject] = useState(null);
   const cursor = useRef(null);
 
   const roles = [
@@ -73,7 +118,7 @@ function App() {
         </button>
 
         <nav className={menuOpen ? "nav-links open" : "nav-links"}>
-          {["home", "about", "experience", "skills", "projects", "contact"].map((item) => (
+          {["home", "about", "experience", "skills", "projects", "web-apps", "contact"].map((item) => (
             <button key={item} onClick={() => scrollTo(item)}>
               {item}
             </button>
@@ -155,7 +200,7 @@ function App() {
           </div>
           <div className="stats">
             <div><strong>18+</strong><span>TECHNOLOGIES</span></div>
-            <div><strong>03</strong><span>MAJOR PROJECTS</span></div>
+            <div><strong>09</strong><span>MAJOR PROJECTS</span></div>
             <div><strong>∞</strong><span>THINGS TO LEARN</span></div>
           </div>
         </section>
@@ -216,6 +261,14 @@ function App() {
                 <div className="project-main">
                   <h3>{project.title}</h3>
                   <p>{project.text}</p>
+                  <div className="project-actions">
+                    <span className="project-type">{project.appType}</span>
+                    {project.link && project.link !== "#" ? (
+                      <a className="project-link" href={project.link} target="_blank" rel="noreferrer">
+                        View Repo ↗
+                      </a>
+                    ) : null}
+                  </div>
                   <div className="tags">
                     {project.stack.map((tag) => <span key={tag}>{tag}</span>)}
                   </div>
@@ -226,12 +279,67 @@ function App() {
           </div>
         </section>
 
+        <section id="web-apps" className="section web-apps">
+          <div className="section-label">05 / WEB APPS</div>
+          <div className="project-intro">
+            <p className="kicker">FULLY INTERACTIVE BUILDS</p>
+            <h2>WEB<br /><span>APPLICATIONS.</span></h2>
+          </div>
+          <div className="web-project-grid">
+            {webProjects.map((project) => (
+              <article className="web-card" key={project.number}>
+                <div className="web-card-top">
+                  <span className="web-card-badge">WEB APP</span>
+                  <span className="web-card-index">{project.number}</span>
+                </div>
+                <h3>{project.title}</h3>
+                <p>{project.text}</p>
+                <div className="tags">
+                  {project.stack.map((tag) => <span key={tag}>{tag}</span>)}
+                </div>
+                <div className="web-card-actions">
+                  <button className="web-card-link" type="button" onClick={() => setSelectedProject(project)}>
+                    OPEN APP ↗
+                  </button>
+                  {project.link && project.link !== "#" ? (
+                    <a className="web-card-link subtle" href={project.link} target="_blank" rel="noreferrer">
+                      SOURCE ↗
+                    </a>
+                  ) : null}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {selectedProject ? (
+          <div className="preview-backdrop" onClick={() => setSelectedProject(null)}>
+            <div className="preview-modal" onClick={(event) => event.stopPropagation()}>
+              <div className="preview-header">
+                <div>
+                  <span className="preview-badge">LIVE PREVIEW</span>
+                  <h3>{selectedProject.title}</h3>
+                </div>
+                <button type="button" className="preview-close" onClick={() => setSelectedProject(null)}>
+                  CLOSE
+                </button>
+              </div>
+              <iframe
+                title={selectedProject.title}
+                src={selectedProject.previewUrl}
+                className="preview-frame"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        ) : null}
+
         <section className="marquee" aria-hidden="true">
           <div>BUILD • LEARN • CREATE • REPEAT • BUILD • LEARN • CREATE • REPEAT • </div>
         </section>
 
         <section id="contact" className="section contact">
-          <div className="section-label">05 / CONTACT</div>
+          <div className="section-label">06 / CONTACT</div>
           <div className="contact-content">
             <p className="kicker">HAVE A PROJECT OR OPPORTUNITY?</p>
             <h2>LET&apos;S MAKE<br /><span>SOMETHING.</span></h2>
@@ -254,5 +362,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
