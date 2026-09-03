@@ -1,5 +1,17 @@
 # React + Vite
 
+## Deploy to GitHub Pages
+
+This repository includes a GitHub Actions workflow that builds and deploys the portfolio
+to Pages whenever `master` or `main` is updated.
+
+1. Push the project to GitHub.
+2. In **Settings > Pages**, set **Source** to **GitHub Actions**.
+3. Open the **Actions** tab and wait for **Deploy to GitHub Pages** to finish.
+
+The Vite base path is configured for this repository's project URL:
+`https://prasoon9336.github.io/New-Portfolio/`.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
