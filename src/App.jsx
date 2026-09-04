@@ -3,7 +3,7 @@ import "./index.css";
 
 const skills = [
   "HTML", "CSS", "JavaScript", "React", "Node.js", "Express",
-  "Bootstrap", "Tailwind CSS", "C", "C++", "Java", "Python",
+  "Bootstrap", "Tailwind CSS", "C", "C++",
   "SQL", "Git", "GitHub", "REST API", "ASP.NET Core", "EF Core"
 ];
 

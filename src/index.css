@@ -128,7 +128,7 @@ a { color: inherit; text-decoration: none; }
 .orbit-one { width: 56vw; height: 56vw; right: -16vw; top: 10vh; }
 .orbit-two { width: 38vw; height: 38vw; right: -7vw; top: 19vh; border-color: rgba(124, 231, 255, .16); animation-direction: reverse; animation-duration: 25s; }
 @keyframes orbit { to { transform: rotate(360deg); } }
-.hero-copy { position: relative; z-index: 2; }
+.hero-copy { position: relative; z-index: 3; max-width: 58%; }
 .eyebrow, .kicker, .section-label, .year, .scroll-hint, .tags span, footer, .socials a {
   font-family: "DM Mono", monospace;
 }
@@ -145,12 +145,21 @@ a { color: inherit; text-decoration: none; }
 .outline { color: transparent; -webkit-text-stroke: 1px rgba(255, 255, 255, .8); }
 .hero-bottom {
   max-width: 720px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: end;
+  align-items: flex-end;
   gap: 30px;
 }
-.hero-bottom p { max-width: 410px; color: #aaa; line-height: 1.7; font-size: 14px; }
+.hero-bottom p {
+  max-width: 520px;
+  margin: 0;
+  color: #aaa;
+  line-height: 1.2;
+  font-size: clamp(18px, 1.8vw, 32px);
+  letter-spacing: -0.04em;
+  font-weight: 400;
+}
 .hero-actions { display: flex; gap: 8px; flex-shrink: 0; }
 .pill {
   border: 1px solid var(--line);
@@ -167,12 +176,16 @@ a { color: inherit; text-decoration: none; }
 .pill:hover { transform: translateY(-4px); border-color: rgba(255, 255, 255, .55); }
 .pill.filled:hover { background: var(--violet); color: white; }
 .portrait-wrap {
-  height: min(72vh, 760px);
+  position: absolute;
+  right: -5%;
+  top: 12%;
+  width: min(54vw, 760px);
+  height: min(78vh, 820px);
   min-height: 500px;
-  position: relative;
   display: grid;
   place-items: end center;
   isolation: isolate;
+  z-index: 1;
   animation: portrait-in 1.2s .15s cubic-bezier(.2, .8, .2, 1) both;
 }
 @keyframes portrait-in { from { opacity: 0; transform: translateY(24px) scale(.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
@@ -207,18 +220,19 @@ a { color: inherit; text-decoration: none; }
 .portrait {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: center 58%;
+  object-fit: cover;
+  object-position: center top;
   position: relative;
   z-index: 2;
   filter: grayscale(14%) contrast(1.08) brightness(.94) saturate(.92);
   -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 76%, rgba(0, 0, 0, .88) 88%, transparent 100%);
   mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 76%, rgba(0, 0, 0, .88) 88%, transparent 100%);
   transition: filter .5s ease, transform .5s ease;
+  transform: scale(1.1);
 }
 .portrait-wrap:hover .portrait {
   filter: grayscale(0%) contrast(1.08) brightness(1) saturate(1);
-  transform: scale(1.025);
+  transform: scale(1.14);
 }
 .portrait-glow {
   position: absolute;
@@ -576,7 +590,8 @@ footer button { background: transparent; border: 0; color: #aaa; font: inherit; 
   .menu-button { display: block; font-size: 9px; letter-spacing: .1em; }
   .hero { grid-template-columns: 1fr; padding-top: 130px; }
   .hero h1 { font-size: clamp(55px, 16vw, 105px); }
-  .portrait-wrap { position: absolute; right: -18%; bottom: 5%; width: 65%; height: 58%; min-height: 0; opacity: .75; }
+  .hero-copy { max-width: 100%; }
+  .portrait-wrap { position: absolute; right: -18%; bottom: 5%; width: 65%; height: 58%; min-height: 0; opacity: .75; top: auto; }
   .hero-bottom { flex-direction: column; align-items: flex-start; }
   .hero-bottom p { max-width: 500px; }
   .about-content, .experience-head, .project-intro, .project-list, .contact-content { margin-left: 0; }
